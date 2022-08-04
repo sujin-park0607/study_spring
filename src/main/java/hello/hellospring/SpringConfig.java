@@ -1,26 +1,31 @@
 package hello.hellospring;
 
 import hello.hellospring.controller.MemberController;
-import hello.hellospring.repository.JdbcMemberRepository;
-import hello.hellospring.repository.JdbcTemplateMemberRepository;
-import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 //    @Autowired DataSource dataSource;
-    private DataSource dataSource;
+//    private DataSource dataSource;
+
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
+
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
 
     //로직을 호출해서 스프링빈에 등록
     @Bean
@@ -30,9 +35,9 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository(){
-
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource); //JdbcTemplate사용하는 조립 코em
+        return new JpaMemberRepository(em);
     }
 }
