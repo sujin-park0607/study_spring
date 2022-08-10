@@ -17,8 +17,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
+    //-> 이상황이면 싱글톤이 깨지는 것 아닌가?
+
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.memberRepository
+    //call Appconfig.orderService
+    //call AppConfig.memberRepository
+
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
         //같이 담아서 넘겨줌!! 생서자 주입
         //마치 의존관계를 주입해주는것 같아서 의존관계 주입이라고 한다.
@@ -26,11 +37,13 @@ public class AppConfig {
 
     @Bean
     public MemoryMemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
