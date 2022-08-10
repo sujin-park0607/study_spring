@@ -41,5 +41,7 @@ public class ConfigurationSingletonTest {
         AppConfig bean = ac.getBean(AppConfig.class);
 
         System.out.println("bean = " + bean.getClass());
+        //실제로 AppConfig가 아닌 오버라이딩 된 AppConfig@CGLIB를 호출하는것이다.
+
     }
 }
