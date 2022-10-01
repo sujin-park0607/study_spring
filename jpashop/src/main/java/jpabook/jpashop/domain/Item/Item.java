@@ -39,6 +39,7 @@ public abstract class Item {
 
     /**
      *
+<<<<<<< HEAD
      * stock 감소소
      * */
     public void removeStock(int quantity){
