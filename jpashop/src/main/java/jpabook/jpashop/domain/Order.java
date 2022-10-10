@@ -78,7 +78,6 @@ public class Order {
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem:orderItems) {
             orderItem.cancel();
-
         }
     }
 
